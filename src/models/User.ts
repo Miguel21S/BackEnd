@@ -1,8 +1,8 @@
-import { Column, Entity, JoinColumn, ManyToMany, PrimaryGeneratedColumn, Timestamp } from "typeorm"
+import { BaseEntity, Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn, Timestamp } from "typeorm"
 import { Role } from "./Role";
 
 @Entity('users')
-export class User {
+export class User extends BaseEntity{
 
     @PrimaryGeneratedColumn()
     id!: number;
@@ -24,7 +24,7 @@ export class User {
     @Column({'name': 'is_active'})
     is_active!: boolean;
 
-    @ManyToMany(() => Role, (role) => role.users)
+    @ManyToOne(() => Role, (role) => role.users)
     @JoinColumn({name: "role_id",})
     role!: Role;
 
