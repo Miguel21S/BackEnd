@@ -1,7 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn, Timestamp } from "typeorm"
+import { Column, Entity, JoinColumn, ManyToMany, PrimaryGeneratedColumn, Timestamp } from "typeorm"
+import { Role } from "./Role";
 
 @Entity('users')
-export class Users {
+export class User {
 
     @PrimaryGeneratedColumn()
     id!: number;
@@ -18,9 +19,13 @@ export class Users {
     role_id!: number;
 
     @Column({'name': 'created_at'})
-    created_at!: Timestamp;
+    created_at!: Date;
 
     @Column({'name': 'is_active'})
     is_active!: boolean;
+
+    @ManyToMany(() => Role, (role) => role.users)
+    @JoinColumn({name: "role_id",})
+    role!: Role;
 
 }
