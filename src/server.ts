@@ -1,3 +1,4 @@
+
 import express, { Application } from 'express';
 import * as myControllers from './controllers/controllers';
 import 'dotenv/config';
@@ -16,7 +17,7 @@ app.get('/api', (req, res) => {
     });
 });
 
-app.get('/api/roles',myControllers. getRoles);
+app.get('/api/roles', myControllers.getRoles);
 app.post('/api/roles', myControllers.createRoles);
 app.put('/api/roles/:id', myControllers.updateRoles);
 app.delete('/api/roles/:id', myControllers.deleteRoles);
@@ -29,6 +30,6 @@ AppDataSource.initialize()
         console.log(error)
     })
 
-    app.listen(PORT, () => {
-        console.log('Server running on port: 4000');
-    });
+app.listen(PORT, () => {
+    console.log('Server running on port: 4000');
+});
