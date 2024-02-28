@@ -1,6 +1,7 @@
 
 /// COMANDO PARA CREAR MODELO ENTITY
 //// npx typeorm entity:create ./src//models/Role
+// CLASE ENTIDAD RELACIONAL DE
 
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { User } from "./User";

@@ -7,10 +7,10 @@ import { Books1709031084741 } from './migrations/1709031084741-books';
 import { Role } from '../models/Role';
 import { User } from '../models/User';
 import { Author1709038022867 } from './migrations/1709038022867-author';
-import { Loans1709031746172 } from './migrations/1709031746172-loans';
 import { AuthorbookFavourite1709038370387 } from './migrations/1709038370387-authorbook_favourite';
 import { Users1709110164253 } from './migrations/1709110164253-users';
 import { Users1709110254377 } from './migrations/1709110254377-users';
+import { Loans1709113283031 } from './migrations/1709113283031-loans';
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -24,9 +24,9 @@ export const AppDataSource = new DataSource({
         Roles1708946185209,
         Users1709110164253,
         Users1709110254377, 
-        Books1709031084741, 
+        Books1709031084741,
+        Loans1709113283031,
         Author1709038022867,
-        Loans1709031746172,
         AuthorbookFavourite1709038370387],
     synchronize: false,
     logging: false,

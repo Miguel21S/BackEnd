@@ -1,3 +1,5 @@
+
+// CLASE ENTIDAD RELACIONAL DE USER
 import { BaseEntity, Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn, Timestamp } from "typeorm"
 import { Role } from "./Role";
 
@@ -6,6 +8,7 @@ export class User extends BaseEntity{
 
     @PrimaryGeneratedColumn()
     id!: number;
+
     @Column({'name': 'name'})
     name!: string;
 
