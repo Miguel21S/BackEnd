@@ -1,12 +1,14 @@
 
+//IMPORTACIÓN DE LIBRERIAS Y CLASES
 import express, { Application } from 'express';
 import * as myControllers from './controllers/controllers';
 import {register} from './controllers/authController';
 import 'dotenv/config';
 import { AppDataSource } from './database/db';
-//import { register } from 'module';
+import { getUsers } from './controllers/userController';
 // import dotenv from 'dotenv'
 
+//DECLARACIÓN DE LA VARIABLE APP
 export const app: Application = express();
 // dotenv.config();
 const PORT = process.env.PORT || 4000;
@@ -25,6 +27,7 @@ app.put('/api/roles/:id', myControllers.updateRoles);
 app.delete('/api/roles/:id', myControllers.deleteRoles);
 
 app.post('/api/roles/registo', register)
+app.get('/api/roles/users', getUsers)
 
 
 
