@@ -3,11 +3,14 @@ import 'dotenv/config';
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { Roles1708946185209 } from "./migrations/1708946185209-roles";
-import { Users1708948581768 } from './migrations/1708948581768-users';
-import { Users1709025174650 } from './migrations/1709025174650-users';
 import { Books1709031084741 } from './migrations/1709031084741-books';
 import { Role } from '../models/Role';
 import { User } from '../models/User';
+import { Author1709038022867 } from './migrations/1709038022867-author';
+import { Loans1709031746172 } from './migrations/1709031746172-loans';
+import { AuthorbookFavourite1709038370387 } from './migrations/1709038370387-authorbook_favourite';
+import { Users1709110164253 } from './migrations/1709110164253-users';
+import { Users1709110254377 } from './migrations/1709110254377-users';
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -17,7 +20,14 @@ export const AppDataSource = new DataSource({
     password: "2345",
     database: "new_libreria",
     entities: [Role, User],
-    migrations:[Roles1708946185209, Users1708948581768, Users1709025174650, Books1709031084741],
+    migrations:[
+        Roles1708946185209,
+        Users1709110164253,
+        Users1709110254377, 
+        Books1709031084741, 
+        Author1709038022867,
+        Loans1709031746172,
+        AuthorbookFavourite1709038370387],
     synchronize: false,
     logging: false,
 })

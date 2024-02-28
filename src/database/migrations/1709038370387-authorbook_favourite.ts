@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class Loans1709031746172 implements MigrationInterface {
+export class AuthorbookFavourite1709038370387 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "loans",
+                name: "authorbook_favourite",
                 columns: [
                     {
                         name: "id",
@@ -15,21 +15,8 @@ export class Loans1709031746172 implements MigrationInterface {
                         generationStrategy: "increment",
                     },
                     {
-                        name: "load_date",
-                        type: "Timestamp",
-                        default: "now()",
-                        onUpdate: "now()"
-                    },
-                    {
-                        name: "due_date",
-                        type: "Timestamp",
-                        default: "now()",
-                        isNullable: false
-                    },
-                    {
-                        name: "return_date",
-                        type: "Timestamp",
-                        default: "now()",
+                        name: "author_id",
+                        type: "int",
                         isNullable: false
                     },
                     {
@@ -37,34 +24,27 @@ export class Loans1709031746172 implements MigrationInterface {
                         type: "int",
                         isNullable: false
                     },
-                    {
-                        name: "user_id",
-                        type: "int",
-                        isNullable: false
-                    }
                 ],
                 foreignKeys: [
                     {
-                        name: "FK_loans_books",
-                        columnNames: ["book_id"],
-                        referencedTableName: "books",
+                        columnNames: ["author_id"],
+                        referencedTableName: "authors",
                         referencedColumnNames: ["id"],
                         onDelete: "CASCADE"
                     },
                     {
-                        name: "FK_loans_users",
-                        columnNames: ["user_id"],
-                        referencedTableName: "users",
+                        columnNames: ["book_id"],
+                        referencedTableName: "books",
                         referencedColumnNames: ["id"],
                         onDelete: "CASCADE"
                     }]
             }),
             true
-        )
+        );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("loans");
+        await queryRunner.dropTable("authorbook_favourite");
     }
 
 }
