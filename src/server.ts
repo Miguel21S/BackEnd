@@ -7,6 +7,7 @@ import 'dotenv/config';
 import { AppDataSource } from './database/db';
 import { deleteUserById, getUserById, getUsers, getupdateUser } from './controllers/userController';
 import { auth } from './middlewares/auth';
+import { isSuperAdmin } from './middlewares/isSuperAdmin';
 // import dotenv from 'dotenv'
 
 //DECLARACIÓN DE LA VARIABLE APP
@@ -33,7 +34,7 @@ app.post('/api/roles/registo', register)
 app.post('/api/login', login);
 
 //RUTAS USUARIOS
-app.get('/api/roles/users',auth, getUsers)
+app.get('/api/roles/users',auth, isSuperAdmin, getUsers)
 app.get('/api/roles/users/:id', getUserById)
 app.put('/api/roles/users/:id', getupdateUser)
 app.delete('/api/roles/users/:id', deleteUserById)

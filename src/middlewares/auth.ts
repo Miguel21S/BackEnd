@@ -4,14 +4,14 @@ import Jwt from "jsonwebtoken";
 import { TokenData } from "../types";
 
 export const auth = async (req: Request, res: Response, next: NextFunction) => {
-    console.log('Soy el auth middleware');
+    // console.log('Soy el auth middleware');
     try {
         const token = req.headers.authorization?.split(" ")[1];
         if (!token) {
             return res.status(401).json(
                 {
                     success: false,
-                    message: "Inaauthorizado"
+                    message: "No authorizado"
                 }
             )
         }

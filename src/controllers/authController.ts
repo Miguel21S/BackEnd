@@ -1,7 +1,7 @@
 
 import { Request, Response } from "express";
 import bcrypt from 'bcrypt';
-import  Jwt  from "jsonwebtoken";
+import Jwt from "jsonwebtoken";
 import { User } from "../models/User";
 
 export const register = async (req: Request, res: Response) => {
@@ -43,7 +43,7 @@ export const register = async (req: Request, res: Response) => {
                 name: name,
                 email: email,
                 password: passwordEncrypted,
-                role:{
+                role: {
                     id: 1
                 }
             }
@@ -62,7 +62,7 @@ export const register = async (req: Request, res: Response) => {
     }
 }
 
-export const login = async(req:Request, res: Response) => {
+export const login = async (req: Request, res: Response) => {
     try {
 
         // RECUPERAR LA INFORMACIÓN
@@ -71,7 +71,7 @@ export const login = async(req:Request, res: Response) => {
 
         // VALIDACIÓN DE EMAIL Y PASSWORD
 
-        if(!email || !password){
+        if (!email || !password) {
             return res.status(400).json({
                 success: false,
                 message: "Email and password are needed"
@@ -80,22 +80,22 @@ export const login = async(req:Request, res: Response) => {
 
         const user = await User.findOne(
             {
-                where :{
-                    email:email
+                where: {
+                    email: email
                 },
                 relations: {
                     role: true
                 },
-                select:{
+                select: {
                     id: true,
                     password: true,
                     email: true
                 }
             }
         )
-        console.log(user);
+        // console.log(user);
 
-        if(!user){
+        if (!user) {
             return res.status(400).json({
                 success: false,
                 message: "Datos invalidos"
@@ -103,7 +103,7 @@ export const login = async(req:Request, res: Response) => {
         }
         const validarPassword = bcrypt.compareSync(password, user.password);
 
-        if(!validarPassword){
+        if (!validarPassword) {
             return res.status(400).json({
                 success: false,
                 message: "Datos invalidos"
@@ -113,13 +113,13 @@ export const login = async(req:Request, res: Response) => {
         //CREAR TOKEN
         const token = Jwt.sign(
             {
-            Id: user.id,
-            name:user.role.name
-        },
-        process.env.JWT_SECRET as string,
-        {
-            expiresIn: "2h"
-        }
+                Id: user.id,
+                name: user.role.name
+            },
+            process.env.JWT_SECRET as string,
+            {
+                expiresIn: "2h"
+            }
         )
 
         res.status(200).json({
