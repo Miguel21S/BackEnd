@@ -9,8 +9,7 @@ const getRoles = (req: Request, res: Response) => {
     });
 };
 
-const createRoles = async (req: Request, res: Response) => {
-    
+const createRoles = async (req: Request, res: Response) => {  
    try {
     const name = req.body.name;
 
@@ -41,19 +40,15 @@ const createRoles = async (req: Request, res: Response) => {
 };
 
 const updateRoles = (req: Request, res: Response) => {
-
-    
     res.status(200).json({
         success:true,
         message: "Roles updated"
     });
 };
-
 const deleteRoles = (req: Request, res: Response) => {
     res.status(200).json({
         success:true,
         message: "Roles deleted"
     });
 };
-
 export {getRoles, createRoles, updateRoles, deleteRoles}

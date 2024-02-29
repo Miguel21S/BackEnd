@@ -2,10 +2,10 @@
 //IMPORTACIÓN DE LIBRERIAS Y CLASES
 import express, { Application } from 'express';
 import * as myControllers from './controllers/controllers';
-import {register} from './controllers/authController';
+import {login, register} from './controllers/authController';
 import 'dotenv/config';
 import { AppDataSource } from './database/db';
-import { getUserById, getUsers, getupdateUser } from './controllers/userController';
+import { deleteUserById, getUserById, getUsers, getupdateUser } from './controllers/userController';
 // import dotenv from 'dotenv'
 
 //DECLARACIÓN DE LA VARIABLE APP
@@ -22,14 +22,19 @@ app.get('/api', (req, res) => {
 });
 
 app.get('/api/roles', myControllers.getRoles);
-app.post('/api/roles', myControllers.createRoles);
 app.put('/api/roles/:id', myControllers.updateRoles);
-app.delete('/api/roles/:id', myControllers.deleteRoles);
 
+app.post('/api/roles', myControllers.createRoles);
+
+//ROTAS AUTH
 app.post('/api/roles/registo', register)
+app.post('/api/login', login);
+
+//RUTAS USUARIOS
 app.get('/api/roles/users', getUsers)
 app.get('/api/roles/users/:id', getUserById)
 app.put('/api/roles/users/:id', getupdateUser)
+app.delete('/api/roles/users/:id', deleteUserById)
 
 
 

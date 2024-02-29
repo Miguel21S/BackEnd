@@ -12,7 +12,6 @@ export const getUsers = async (req: Request, res: Response) => {
                 role_id: true
             }
         })
-
         res.status(200).json({
             success: true,
             message: "Users are available",
@@ -43,10 +42,11 @@ export const getUserById = async (req: Request, res: Response) => {
                 message: "user not found"
             })
         }
+
         res.status(200).json({
             success: true,
             message: "Users retrieved",
-            data: user
+            data: user.name +" "+ user.email
         });
 
     } catch (error) {
@@ -65,11 +65,11 @@ export const getupdateUser = async (req: Request, res: Response) => {
         const name = req.body.name;
 
         //COMPROVAR SI USUARIO EXISTE
-
         const user = await User.findOneBy({
             id: parseInt(users)
 
-        });
+        }
+        );
         if (!user) {
             return res.status(404).json({
                 success: false,
@@ -85,7 +85,6 @@ export const getupdateUser = async (req: Request, res: Response) => {
             {
                 name: name
             },
-
             // req.body
         )
 
@@ -99,6 +98,34 @@ export const getupdateUser = async (req: Request, res: Response) => {
         res.status(500).json({
             success: false,
             message: "Error getting in update",
+            error: error
+        })
+    }
+}
+
+export const deleteUserById = async (req: Request, res: Response) => {
+    try {
+        const users = req.params.id;
+        const name = req.body.name;
+
+        //COMPROVAR SI USUARIO EXISTE
+        const userToRemove: any = await User.findOneBy(
+            {
+                id: parseInt(users)
+            }
+        )
+        const deletado = await User.delete(userToRemove);
+
+        //DEVOLVER LA RESPUESTA TRUE
+        res.status(200).json({
+            success: true,
+            message: "Users update",
+            data: deletado
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "User cant be logged",
             error: error
         })
     }

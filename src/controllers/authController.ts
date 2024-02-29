@@ -60,3 +60,65 @@ export const register = async (req: Request, res: Response) => {
         })
     }
 }
+
+export const login = async(req:Request, res: Response) => {
+    try {
+
+        // RECUPERAR LA INFORMACIÓN
+        const email = req.body.email;
+        const password = req.body.password;
+
+        // VALIDACIÓN DE EMAIL Y PASSWORD
+
+        if(!email || !password){
+            return res.status(400).json({
+                success: false,
+                message: "Email and password are needed"
+            })
+        }
+
+        const user = await User.findOne(
+            {
+                where :{
+                    email:email
+                },
+                relations: {
+                    role: true
+                },
+                select:{
+                    id: true,
+                    password: true,
+                    email: true
+                }
+            }
+        )
+        console.log(user);
+
+        if(!user){
+            return res.status(400).json({
+                success: false,
+                message: "Datos invalidos"
+            })
+        }
+        const validarPassword = bcrypt.compareSync(password, user.password);
+
+        if(!validarPassword){
+            return res.status(400).json({
+                success: false,
+                message: "Datos invalidos kklk"
+            })
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Logged successfull",
+            // data: encontrar
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error registering",
+            error: error
+        })
+    }
+}
