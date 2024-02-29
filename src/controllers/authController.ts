@@ -1,6 +1,7 @@
 
 import { Request, Response } from "express";
 import bcrypt from 'bcrypt';
+import  Jwt  from "jsonwebtoken";
 import { User } from "../models/User";
 
 export const register = async (req: Request, res: Response) => {
@@ -105,14 +106,26 @@ export const login = async(req:Request, res: Response) => {
         if(!validarPassword){
             return res.status(400).json({
                 success: false,
-                message: "Datos invalidos kklk"
+                message: "Datos invalidos"
             })
         }
+
+        //CREAR TOKEN
+        const token = Jwt.sign(
+            {
+            Id: user.id,
+            name:user.role.name
+        },
+        process.env.JWT_SECRET as string,
+        {
+            expiresIn: "2h"
+        }
+        )
 
         res.status(200).json({
             success: true,
             message: "Logged successfull",
-            // data: encontrar
+            token: token
         });
     } catch (error) {
         res.status(500).json({
